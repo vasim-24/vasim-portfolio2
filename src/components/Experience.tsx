@@ -8,17 +8,23 @@ export const Experience: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.timeline-item-reveal', {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 75%',
-        },
-        x: -30,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 0.9,
-        ease: 'power3.out',
-      });
+      gsap.fromTo(
+        '.timeline-item-reveal',
+        { opacity: 0, x: -25 },
+        {
+          opacity: 1,
+          x: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: 'power3.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      );
     }, containerRef);
 
     return () => ctx.revert();

@@ -4,5 +4,5 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './',
+  base: process.env.VERCEL ? '/' : (process.env.NODE_ENV === 'production' ? '/vasim-portfolio2/' : '/'),
 })

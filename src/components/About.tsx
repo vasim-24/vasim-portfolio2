@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Sparkles, Terminal, Cpu, Award, Zap, Heart } from 'lucide-react';
-import { gsap } from '../animations/gsapConfig';
-import { getAssetUrl } from '../utils/assets';
+import { gsap, ScrollTrigger } from '../animations/gsapConfig';
+import { getAssetUrl, handleImageError } from '../utils/assets';
 
 interface TamilWordFlipProps {
   english: string;
@@ -31,30 +31,42 @@ export const About: React.FC = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // ScrollTrigger for Section Header
-      gsap.from('.about-reveal', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        },
-        y: 40,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.9,
-        ease: 'power3.out',
-      });
+      gsap.fromTo(
+        '.about-reveal',
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.12,
+          duration: 0.8,
+          ease: 'power3.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      );
 
       // Quote reveal
       if (quoteRef.current) {
-        gsap.from(quoteRef.current, {
-          scrollTrigger: {
-            trigger: quoteRef.current,
-            start: 'top 80%',
-          },
-          scale: 0.95,
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.out',
-        });
+        gsap.fromTo(
+          quoteRef.current,
+          { opacity: 0, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.9,
+            ease: 'power2.out',
+            clearProps: 'all',
+            scrollTrigger: {
+              trigger: quoteRef.current,
+              start: 'top 85%',
+              once: true,
+            },
+          }
+        );
       }
     }, sectionRef);
 
@@ -131,6 +143,8 @@ export const About: React.FC = () => {
                   className="w-full h-full object-cover object-top"
                   loading="lazy"
                   decoding="async"
+                  onError={(e) => handleImageError(e, '/images/hero-character.jpg')}
+                  onLoad={() => ScrollTrigger.refresh()}
                 />
               </div>
               <div>

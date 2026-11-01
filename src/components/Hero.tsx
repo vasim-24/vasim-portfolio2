@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown, Sparkles, Compass } from 'lucide-react';
-import { gsap } from '../animations/gsapConfig';
-import { getAssetUrl } from '../utils/assets';
+import { gsap, ScrollTrigger } from '../animations/gsapConfig';
+import { getAssetUrl, handleImageError } from '../utils/assets';
 
 export const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -158,6 +158,8 @@ export const Hero: React.FC = () => {
                 className="w-full h-full object-cover object-top filter contrast-[1.02] brightness-[1.01] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 loading="eager"
                 decoding="async"
+                onError={(e) => handleImageError(e, '/images/hero-character.jpg')}
+                onLoad={() => ScrollTrigger.refresh()}
               />
 
               {/* Character Glass Tag at Bottom */}

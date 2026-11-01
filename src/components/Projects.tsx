@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight, CheckCircle2, X } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import { projectsData, type Project } from '../data/projects';
-import { gsap } from '../animations/gsapConfig';
-import { getAssetUrl } from '../utils/assets';
+import { gsap, ScrollTrigger } from '../animations/gsapConfig';
+import { getAssetUrl, handleImageError } from '../utils/assets';
 
 export const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -32,17 +32,23 @@ export const Projects: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.project-card-reveal', {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 70%',
-        },
-        y: 60,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 1,
-        ease: 'power3.out',
-      });
+      gsap.fromTo(
+        '.project-card-reveal',
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: 'power3.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -177,6 +183,8 @@ export const Projects: React.FC = () => {
                     className="w-full h-full object-cover object-center group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                     loading="lazy"
                     decoding="async"
+                    onError={(e) => handleImageError(e, project.image)}
+                    onLoad={() => ScrollTrigger.refresh()}
                   />
 
                   {/* Corner Badge */}
@@ -233,6 +241,7 @@ export const Projects: React.FC = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
+                  onError={(e) => handleImageError(e, selectedProject.image)}
                 />
               </div>
 

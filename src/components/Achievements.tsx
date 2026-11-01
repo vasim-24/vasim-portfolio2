@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Trophy, Award, Flame, CheckCircle, Sparkles, Maximize2, X } from 'lucide-react';
 import { achievementsData, type Achievement } from '../data/achievements';
-import { gsap } from '../animations/gsapConfig';
-import { getAssetUrl } from '../utils/assets';
+import { gsap, ScrollTrigger } from '../animations/gsapConfig';
+import { getAssetUrl, handleImageError } from '../utils/assets';
 
 export const Achievements: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -33,17 +33,23 @@ export const Achievements: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.achievement-item-reveal', {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 75%',
-        },
-        y: 40,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.9,
-        ease: 'power3.out',
-      });
+      gsap.fromTo(
+        '.achievement-item-reveal',
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: 'power3.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -120,6 +126,8 @@ export const Achievements: React.FC = () => {
                     className="w-full h-full object-cover object-center filter contrast-[1.02] brightness-[1.01] transition-transform duration-700 ease-out group-hover/photo:scale-105"
                     loading="lazy"
                     decoding="async"
+                    onError={(e) => handleImageError(e, item.image)}
+                    onLoad={() => ScrollTrigger.refresh()}
                   />
                   {/* Subtle dark gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover/photo:opacity-40 transition-opacity duration-300" />
@@ -227,6 +235,7 @@ export const Achievements: React.FC = () => {
                 className="w-full h-auto max-h-[70vh] object-contain"
                 loading="lazy"
                 decoding="async"
+                onError={(e) => handleImageError(e, selectedAchievement.image)}
               />
             </div>
 
