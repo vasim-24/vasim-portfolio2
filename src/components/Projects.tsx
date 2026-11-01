@@ -3,6 +3,7 @@ import { ArrowUpRight, CheckCircle2, X } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import { projectsData, type Project } from '../data/projects';
 import { gsap } from '../animations/gsapConfig';
+import { getAssetUrl } from '../utils/assets';
 
 export const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -171,10 +172,11 @@ export const Projects: React.FC = () => {
                   <div className="absolute inset-0 bg-black/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   
                   <img
-                    src={project.image}
+                    src={getAssetUrl(project.image)}
                     alt={`${project.title} visual preview`}
                     className="w-full h-full object-cover object-center group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                     loading="lazy"
+                    decoding="async"
                   />
 
                   {/* Corner Badge */}
@@ -226,9 +228,11 @@ export const Projects: React.FC = () => {
               {/* Preview Image in Modal */}
               <div className="rounded-2xl overflow-hidden border border-brand-dark/10 aspect-video bg-brand-surface">
                 <img
-                  src={selectedProject.image}
+                  src={getAssetUrl(selectedProject.image)}
                   alt={selectedProject.title}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 

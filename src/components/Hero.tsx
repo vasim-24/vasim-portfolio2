@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown, Sparkles, Compass } from 'lucide-react';
 import { gsap } from '../animations/gsapConfig';
+import { getAssetUrl } from '../utils/assets';
 
 export const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -152,10 +153,11 @@ export const Hero: React.FC = () => {
             {/* Image Container with Editorial Border */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-white/30 bg-[#FF5A0A] aspect-[9/16] max-h-[46vh] sm:max-h-[60vh] lg:max-h-[75vh]">
               <img
-                src="/images/hero-character.jpg"
+                src={getAssetUrl('/images/hero-character.jpg')}
                 alt="Mohammed Vasim illustrated character with headphones and blue jacket"
                 className="w-full h-full object-cover object-top filter contrast-[1.02] brightness-[1.01] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 loading="eager"
+                decoding="async"
               />
 
               {/* Character Glass Tag at Bottom */}

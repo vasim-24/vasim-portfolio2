@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Sparkles, Terminal, Cpu, Award, Zap, Heart } from 'lucide-react';
 import { gsap } from '../animations/gsapConfig';
+import { getAssetUrl } from '../utils/assets';
 
 interface TamilWordFlipProps {
   english: string;
@@ -125,9 +126,11 @@ export const About: React.FC = () => {
             <div className="mt-8 p-4 rounded-2xl bg-[#F4F3EE] border border-brand-dark/8 flex items-center gap-4 shadow-sm">
               <div className="w-16 h-16 rounded-xl overflow-hidden bg-brand-orange flex-shrink-0">
                 <img
-                  src="/images/hero-character.jpg"
+                  src={getAssetUrl('/images/hero-character.jpg')}
                   alt="Mohammed Vasim"
                   className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div>

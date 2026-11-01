@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Trophy, Award, Flame, CheckCircle, Sparkles, Maximize2, X } from 'lucide-react';
 import { achievementsData, type Achievement } from '../data/achievements';
 import { gsap } from '../animations/gsapConfig';
+import { getAssetUrl } from '../utils/assets';
 
 export const Achievements: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -114,10 +115,11 @@ export const Achievements: React.FC = () => {
                   title="Click to view ceremony photo in full resolution"
                 >
                   <img
-                    src={item.image}
+                    src={getAssetUrl(item.image)}
                     alt={`${item.projectName} - ${item.eventName} ceremony`}
                     className="w-full h-full object-cover object-center filter contrast-[1.02] brightness-[1.01] transition-transform duration-700 ease-out group-hover/photo:scale-105"
                     loading="lazy"
+                    decoding="async"
                   />
                   {/* Subtle dark gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover/photo:opacity-40 transition-opacity duration-300" />
@@ -220,9 +222,11 @@ export const Achievements: React.FC = () => {
             {/* Photo Container */}
             <div className="rounded-2xl overflow-hidden bg-black/60 max-h-[70vh] flex items-center justify-center border border-white/10">
               <img
-                src={selectedAchievement.image}
+                src={getAssetUrl(selectedAchievement.image)}
                 alt={`${selectedAchievement.projectName} celebration`}
                 className="w-full h-auto max-h-[70vh] object-contain"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
