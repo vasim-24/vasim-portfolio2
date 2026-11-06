@@ -15,14 +15,14 @@ export const achievementsData: Achievement[] = [
   {
     id: "hackathon-1",
     number: "01",
-    projectName: "Fast & Curious Sprint",
-    eventName: "Fast & Curious Technical Challenge",
+    projectName: "Fast & Curious Challenge",
+    eventName: "PSG College of Technology",
     award: "First Place Winner",
     tag: "1st Prize",
-    description: "Built and pitched a real-time collaborative software prototype under intense time constraints, winning top honors for outstanding live technical execution and problem-solving.",
+    description: "Awarded 1st place at PSG College of Technology's Fast & Curious Challenge. Built and pitched a real-time collaborative software prototype under intense sprint constraints, winning top honors for live technical execution and problem-solving.",
     image: "/images/achievements/achievement-1.jpg",
-    metrics: "Top 1% across participating teams",
-    statusText: "Verified Award"
+    metrics: "1st Place Champion • PSG Tech",
+    statusText: "Verified 1st Place"
   },
   {
     id: "hackathon-2",

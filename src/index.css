@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Youth Touch';
+  src: url('./assets/fonts/Youth-Touch.ttf') format('truetype'),
+       url('/fonts/Youth-Touch.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --brand-orange: #FF5A0A;

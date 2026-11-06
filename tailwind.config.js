@@ -25,6 +25,7 @@ export default {
         sans: ['Plus Jakarta Sans', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
         tamil: ['Noto Sans Tamil', 'sans-serif'],
+        signature: ['"Youth Touch"', 'cursive', 'sans-serif'],
       },
       letterSpacing: {
         tighter: '-0.04em',

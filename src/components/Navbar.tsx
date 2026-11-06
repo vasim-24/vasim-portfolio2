@@ -49,27 +49,33 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             : 'py-6 bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 flex items-center justify-between">
           {/* Brand Wordmark */}
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
-            className="group flex items-center gap-2 text-decoration-none"
+            className="group flex items-center gap-2 text-decoration-none py-1"
           >
-            <span className="font-display font-black text-2xl tracking-tighter text-white drop-shadow-sm group-hover:text-white transition-colors duration-200">
-              MV<span className="text-white inline-block group-hover:scale-125 transition-transform duration-300">.</span>
-            </span>
             <span
-              className={`hidden sm:inline-block font-mono text-xs uppercase tracking-widest transition-opacity duration-300 ${
-                isScrolled ? 'text-brand-dark/60' : 'text-white/80'
+              className={`font-signature text-3xl sm:text-4xl md:text-[40px] leading-none tracking-wide transition-all duration-300 ${
+                isScrolled
+                  ? 'text-brand-dark group-hover:text-brand-orange'
+                  : 'text-white drop-shadow-md group-hover:text-amber-200'
               }`}
+              style={{ fontFamily: "'Youth Touch', cursive, sans-serif" }}
             >
-              / Portfolio
+              mohammed vasim
             </span>
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 bg-black/15 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
+          <nav
+            className={`hidden md:flex items-center gap-1 lg:gap-2 backdrop-blur-md px-3 py-1.5 rounded-full border transition-colors duration-300 ${
+              isScrolled
+                ? 'bg-black/5 border-black/10'
+                : 'bg-black/15 border-white/20'
+            }`}
+          >
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
@@ -79,7 +85,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`relative px-4 py-1.5 text-xs font-mono uppercase tracking-wider rounded-full transition-all duration-300 ${
                     isActive
-                      ? 'text-white font-semibold bg-white/20 shadow-sm'
+                      ? isScrolled
+                        ? 'text-brand-dark font-bold bg-black/10 shadow-sm'
+                        : 'text-white font-semibold bg-white/20 shadow-sm'
+                      : isScrolled
+                      ? 'text-brand-dark/75 hover:text-brand-dark hover:bg-black/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -97,7 +107,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="hidden lg:inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest px-4 py-2 rounded-full border border-white/30 text-white bg-white/10 hover:bg-white hover:text-brand-dark transition-all duration-300 shadow-sm"
+              className={`hidden lg:inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest px-4 py-2 rounded-full border transition-all duration-300 shadow-sm ${
+                isScrolled
+                  ? 'border-brand-dark/20 text-brand-dark bg-black/5 hover:bg-brand-dark hover:text-white'
+                  : 'border-white/30 text-white bg-white/10 hover:bg-white hover:text-brand-dark'
+              }`}
             >
               Let's Talk
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -106,7 +120,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2.5 rounded-full bg-black/20 text-white backdrop-blur-md border border-white/20 focus:outline-none"
+              className={`md:hidden p-2.5 rounded-full backdrop-blur-md border focus:outline-none transition-colors duration-300 ${
+                isScrolled
+                  ? 'bg-black/5 text-brand-dark border-black/10'
+                  : 'bg-black/20 text-white border-white/20'
+              }`}
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
